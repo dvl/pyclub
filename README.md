@@ -1,2 +1,0 @@
-# pyclub
-PythonClub custom CMS
