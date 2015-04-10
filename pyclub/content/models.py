@@ -8,6 +8,9 @@ from . import choices
 
 
 class Post(models.Model):
+    """ Deve se relacionar com a model :class:`Revision` para formar uma
+    publicação, o correto é buscar sempre a ultima :class:`Revision`
+    aprovada tanto pelo autor quanto pela staff """
     status = models.CharField(
         verbose_name=_('Status'),
         max_length=9,
