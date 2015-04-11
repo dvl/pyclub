@@ -18,9 +18,11 @@ class PostTestCase(TestCase):
     def test_queryset_should_contain_only_finished_entries(self):
         posts = models.Post.objects.finished()
 
+        self.assertEqual(posts.count(), 5)
         self.assertTrue(all(p.status == choices.FINISHED for p in posts))
 
     def test_queryset_should_contains_only_draft_entries(self):
         posts = models.Post.objects.draft()
 
+        self.assertEqual(posts.count(), 5)
         self.assertTrue(all(p.status == choices.DRAFT for p in posts))
