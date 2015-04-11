@@ -6,9 +6,8 @@ from django.contrib import admin
 from .content.views import PostListView
 
 urlpatterns = [
-    url(r'', include('social.apps.django_app.urls', namespace='social')),
-
     url(r'', include('pyclub.content.urls', namespace='content')),
 
+    url(r'^auth/', include('social.apps.django_app.urls', namespace='social')),
     url(r'^admin/', include(admin.site.urls)),
 ]
