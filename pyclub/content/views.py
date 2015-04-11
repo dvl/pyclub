@@ -7,16 +7,17 @@ from . import models
 
 
 class PostListView(generic.ListView):
+    model = models.Post
 
     def get_queryset(self):
         # isso pode ficar no queryset manager?
         return (
-            models.Post.objects
+            self.model.objects
             .annotate(
-                last_created=Max('revision__created_at')
+                last_created_at=Max('revision__created_at')
             )
             .filter(
-                Q(revision__created_at=F('last_created')) &
+                Q(revision__created_at=F('last_created_at')) &
                 Q(revision__approved_author=True) &
                 Q(revision__approved_staff=True)
             )

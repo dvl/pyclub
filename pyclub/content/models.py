@@ -38,6 +38,17 @@ class Post(models.Model):
     objects = PostQuerySet.as_manager()
 
 
+class RevisionQuerySet(models.QuerySet):
+    def author_approved(self):
+        return self.filter(approved_author=True)
+
+    def staff_approved(self):
+        return self.filter(approved_staff=True)
+
+    def approved(self):
+        return self.author_approved().staff_approved()
+
+
 class Revision(models.Model):
     post = models.ForeignKey(
         to=Post,
@@ -70,3 +81,5 @@ class Revision(models.Model):
         verbose_name=_('Created at'),
         auto_now_add=True,
     )
+
+    objects = RevisionQuerySet.as_manager()
