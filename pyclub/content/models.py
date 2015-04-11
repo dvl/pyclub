@@ -1,29 +1,38 @@
 # -*- coding: utf-8 -*-
 
+import uuid
+
 from django.conf import settings
 from django.db import models
 from django.utils.translation import ugettext as _
 
-from . import choices
-
 
 class PostQuerySet(models.QuerySet):
     def finished(self):
-        return self.filter(status=choices.FINISHED)
+        return self.filter(status=self.model.FINISHED)
 
     def draft(self):
-        return self.filter(status=choices.DRAFT)
+        return self.filter(status=self.model.DRAFT)
 
 
 class Post(models.Model):
     """ Deve se relacionar com a model :class:`Revision` para formar uma
     publicação, o correto é buscar sempre a ultima :class:`Revision`
-    aprovada tanto pelo autor quanto pela staff """
+    aprovada tanto pelo autor quanto pela staff """]
+
+    DRAFT = 'draft'
+    FINISHED = 'finished'
+
+    STATUS_CHOICES = (
+        (DRAFT, _('Draft')),
+        (FINISHED, _('Finished')),
+    )
+
     status = models.CharField(
         verbose_name=_('Status'),
         max_length=9,
-        choices=choices.STATUS,
-        default=choices.DRAFT,
+        choices=STATUS_CHOICES,
+        default=DRAFT,
     )
 
     created_by = models.ForeignKey(
@@ -38,18 +47,13 @@ class Post(models.Model):
     objects = PostQuerySet.as_manager()
 
 
-class RevisionQuerySet(models.QuerySet):
-    def author_approved(self):
-        return self.filter(approved_author=True)
-
-    def staff_approved(self):
-        return self.filter(approved_staff=True)
-
-    def approved(self):
-        return self.author_approved().staff_approved()
-
-
 class Revision(models.Model):
+    id = models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False
+    )
+
     post = models.ForeignKey(
         to=Post,
     )
@@ -81,5 +85,3 @@ class Revision(models.Model):
         verbose_name=_('Created at'),
         auto_now_add=True,
     )
-
-    objects = RevisionQuerySet.as_manager()
