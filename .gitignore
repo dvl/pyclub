@@ -1,5 +1,7 @@
 *.pyc
 
 .env
+.coverage
 
 bower_components/
+htmlcov/
