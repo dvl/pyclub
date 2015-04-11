@@ -29,6 +29,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     # 3rd
     'debug_toolbar',
+    'django_extensions',
     'social.apps.django_app.default',
     # project
     'pyclub.accounts',
