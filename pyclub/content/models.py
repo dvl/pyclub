@@ -7,6 +7,14 @@ from django.utils.translation import ugettext as _
 from . import choices
 
 
+class PostQuerySet(models.QuerySet):
+    def finished(self):
+        return self.filter(status=choices.FINISHED)
+
+    def draft(self):
+        return self.filter(status=choices.DRAFT)
+
+
 class Post(models.Model):
     """ Deve se relacionar com a model :class:`Revision` para formar uma
     publicação, o correto é buscar sempre a ultima :class:`Revision`
@@ -26,6 +34,8 @@ class Post(models.Model):
         verbose_name=_('Created at'),
         auto_now_add=True,
     )
+
+    objects = PostQuerySet.as_manager()
 
 
 class Revision(models.Model):
