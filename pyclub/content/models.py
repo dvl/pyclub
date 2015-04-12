@@ -4,6 +4,7 @@ import uuid
 
 from django.conf import settings
 from django.db import models
+from django.db.models import Max, F, Q
 from django.utils.translation import ugettext as _
 
 
@@ -14,11 +15,25 @@ class PostQuerySet(models.QuerySet):
     def draft(self):
         return self.filter(status=self.model.DRAFT)
 
+    def posts(self):
+        return (
+            self
+            .annotate(
+                last_created_at=Max('revision__created_at')
+            )
+            .filter(
+                Q(revision__created_at=F('last_created_at')) &
+                Q(revision__approved_author=True) &
+                Q(revision__approved_staff=True)
+            )
+            .finished()
+        )
+
 
 class Post(models.Model):
     """ Deve se relacionar com a model :class:`Revision` para formar uma
     publicação, o correto é buscar sempre a ultima :class:`Revision`
-    aprovada tanto pelo autor quanto pela staff """]
+    aprovada tanto pelo autor quanto pela staff """
 
     DRAFT = 'draft'
     FINISHED = 'finished'
