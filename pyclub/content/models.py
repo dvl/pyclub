@@ -26,7 +26,6 @@ class PostQuerySet(models.QuerySet):
                 Q(revision__approved_author=True) &
                 Q(revision__approved_staff=True)
             )
-            .finished()
         )
 
 
