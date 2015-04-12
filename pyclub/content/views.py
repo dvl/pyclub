@@ -7,3 +7,5 @@ from . import models
 
 class PostListView(generic.ListView):
     queryset = models.Post.objects.posts()
+    ordering = ('-created_at',)
+    paginate_by = 5
