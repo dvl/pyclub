@@ -3,5 +3,10 @@
 {% block title %}Post List{% endblock %}
 
 {% block content %}
-    {{ post_list }}
+    {% for post in post_list %}
+        {% with content=post.get_last_approved_revision %}
+            <li>{{ content.title }} - {{ post.created_at }} - {{ content.created_at }} - {{ content.created_by }}</li>
+            {{ content.body }}
+        {% endwith %}
+    {% endfor %}
 {% endblock %}

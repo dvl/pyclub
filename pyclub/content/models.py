@@ -15,7 +15,8 @@ class PostQuerySet(models.QuerySet):
     def draft(self):
         return self.filter(status=self.model.DRAFT)
 
-    def posts(self):
+    def approved_posts(self):
+        """ Filtra somente os posts que possuem revisões aprovadas """
         return (
             self
             .annotate(
@@ -58,16 +59,35 @@ class Post(models.Model):
         auto_now_add=True,
     )
 
+    active_revision = models.ForeignKey(
+        to='Revision',
+        related_name='active_revision'
+    )
+
     objects = PostQuerySet.as_manager()
+
+    class Meta:
+        get_latest_by = 'created_at'
+
+    def __str__(self):
+        return '{}'.format(self.pk)
+
+    def get_last_approved_revision(self):
+        return self.revision_set.approved().latest()
+
+
+class RevisionQuerySet(models.QuerySet):
+    def staff_approved(self):
+        return self.filter(approved_staff=True)
+
+    def author_approved(self):
+        return self.filter(approved_author=True)
+
+    def approved(self):
+        return self.staff_approved().author_approved()
 
 
 class Revision(models.Model):
-    id = models.UUIDField(
-        primary_key=True,
-        default=uuid.uuid4,
-        editable=False
-    )
-
     post = models.ForeignKey(
         to=Post,
     )
@@ -99,3 +119,11 @@ class Revision(models.Model):
         verbose_name=_('Created at'),
         auto_now_add=True,
     )
+
+    objects = RevisionQuerySet.as_manager()
+
+    class Meta:
+        get_latest_by = 'created_at'
+
+    def __str__(self):
+        return '{}'.format(self.pk)
