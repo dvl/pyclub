@@ -12,5 +12,5 @@ indent_style=space
 [*.py]
 indent_size=4
 
-[*.html]
-indent_size=4
+[*.{html,js,coffee,css,less}]
+indent_size=2
