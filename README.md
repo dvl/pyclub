@@ -16,10 +16,6 @@ Create `.env` file from template
 
     $ cp .env-example .env
 
-And adjust the values if needed
-
-    $ vim .env
-
 Build the containers
 
     $ docker-compose build
@@ -37,3 +33,20 @@ To run any command inside of a container use
 Example:
 
     $ docker-compose run web python manage.py shell
+
+
+### The hard way
+
+Create `.env` file from template
+
+    $ cp .env-example .env
+
+Create a database from proejct and adjust `DATABASE_URL` on `.env` file
+
+    $ vim .env
+
+And run server
+
+    $ python manage.py runserver
+
+Then access http://localhost:8000/
