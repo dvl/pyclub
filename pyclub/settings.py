@@ -6,6 +6,10 @@ from decouple import config, Csv
 
 SITE_ID = 1
 
+SITE_NAME = 'PythonClub'
+
+TAG_LINE = 'Lorem Ipsum'
+
 BASE_DIR = os.path.dirname(__file__)
 
 SECRET_KEY = config('SECRET_KEY')
@@ -15,6 +19,8 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 TEMPLATE_DEBUG = DEBUG
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='*', cast=Csv())
+
+INTERNAL_IPS = config('INTERNAL_IPS', default='127.0.0.1', cast=Csv())
 
 # Application definition
 
@@ -62,6 +68,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'social.apps.django_app.context_processors.backends',
                 'social.apps.django_app.context_processors.login_redirect',
+                'pyclub.core.context_processors.site_settings'
             ],
         },
     },
@@ -118,9 +125,17 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
+SOCIAL_AUTH_USER_MODEL = AUTH_USER_MODEL
+
+SOCIAL_AUTH_URL_NAMESPACE = 'social'
+
+SOCIAL_AUTH_ADMIN_USER_SEARCH_FIELDS = ['username', 'first_name', 'email']
+
 SOCIAL_AUTH_GITHUB_KEY = config('SOCIAL_AUTH_GITHUB_KEY')
 
 SOCIAL_AUTH_GITHUB_SECRET = config('SOCIAL_AUTH_GITHUB_SECRET')
+
+GITHUB_AUTH_EXTRA_ARGUMENTS = {'scope': 'user:email'}
 
 # Email
 
