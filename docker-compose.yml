@@ -1,0 +1,21 @@
+postgres:
+  image: postgresql
+  environment:
+    - POSTGRES_DB=pyclub
+    - POSTGRES_USER=postgres
+    - POSTGRES_PASSWORD=postgres
+  ports:
+    - "5432:5432"
+
+web:
+  build: .
+  command: python manage.py runserver 0.0.0.0:8000
+  environment:
+    - PYTHONDONTWRITEBYTECODE=1
+    - PYTHONUNBUFFERED=1
+  volumes:
+      - .:/usr/src/app
+  ports:
+    - "8000:8000"
+  links:
+    - postgres
