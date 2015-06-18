@@ -1,0 +1,23 @@
+{
+  "name": "pyclub",
+  "version": "1.0.0",
+  "description": "PythonClub",
+  "main": "index.js",
+  "dependencies": {
+    "bower": "^1.4.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dvl/pyclub.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dvl/pyclub/issues"
+  },
+  "homepage": "https://github.com/dvl/pyclub"
+}
