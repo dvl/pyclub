@@ -20,7 +20,7 @@ And adjust the values if needed
 
     $ vim .env
 
-Build the images
+Build the containers
 
     $ docker-compose build
 
