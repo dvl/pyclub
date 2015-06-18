@@ -7,7 +7,6 @@ django-flat-theme==0.9.3
 python-decouple==2.3
 python-social-auth==0.2.3
 
-bcrypt==1.1.1
 psycopg2==2.6
 
 coverage==4.0a5

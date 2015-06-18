@@ -113,10 +113,6 @@ LOGOUT_URL = '/auth/logout/'
 
 LOGIN_REDIRECT_URL = '/'
 
-PASSWORD_HASHERS = (
-    'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
-)
-
 AUTHENTICATION_BACKENDS = (
     'social.backends.github.GithubOAuth2',
     'django.contrib.auth.backends.ModelBackend',
