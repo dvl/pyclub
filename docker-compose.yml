@@ -1,5 +1,5 @@
 postgres:
-  image: postgresql
+  image: postgres
   environment:
     - POSTGRES_DB=postgres
     - POSTGRES_USER=postgres
