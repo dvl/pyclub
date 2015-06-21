@@ -1,0 +1,26 @@
+{
+  "name": "pyclub",
+  "version": "1.0.0",
+  "homepage": "https://github.com/dvl/pyclub",
+  "authors": [
+    "André Luiz <contato@xdvl.info>"
+  ],
+  "moduleType": [
+    "amd"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "font-awesome": "~4.3.0",
+    "jquery": "~2.1.4",
+    "bootstrap": "~3.3.5",
+    "epiceditor": "~0.2.3"
+  }
+}
