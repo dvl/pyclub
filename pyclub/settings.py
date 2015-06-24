@@ -114,11 +114,11 @@ AUTH_USER_MODEL = 'accounts.User'
 
 SOCIAL_AUTH_USER_MODEL = AUTH_USER_MODEL
 
-LOGIN_URL = '/auth/login/'
+LOGIN_URL = '/login/'
 
-LOGOUT_URL = '/auth/logout/'
+LOGOUT_URL = '/logout/'
 
-LOGIN_REDIRECT_URL = '/dashboard'
+LOGIN_REDIRECT_URL = '/dashboard/'
 
 AUTHENTICATION_BACKENDS = (
     'social.backends.github.GithubOAuth2',
