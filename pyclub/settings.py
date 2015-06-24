@@ -118,7 +118,7 @@ LOGIN_URL = '/auth/login/'
 
 LOGOUT_URL = '/auth/logout/'
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/dashboard'
 
 AUTHENTICATION_BACKENDS = (
     'social.backends.github.GithubOAuth2',
@@ -135,7 +135,7 @@ SOCIAL_AUTH_GITHUB_KEY = config('SOCIAL_AUTH_GITHUB_KEY')
 
 SOCIAL_AUTH_GITHUB_SECRET = config('SOCIAL_AUTH_GITHUB_SECRET')
 
-GITHUB_AUTH_EXTRA_ARGUMENTS = {'scope': 'user:email'}
+SOCIAL_AUTH_GITHUB_SCOPE = ['user:email']
 
 # Email
 

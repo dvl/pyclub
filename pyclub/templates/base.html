@@ -1,10 +1,20 @@
+{% load staticfiles %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>{% block title %}{% endblock %}</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>{% block title %}{% endblock %}</title>
+
+  {% block stylesheet %}{% endblock %}
 </head>
 <body>
+  {% block body %}
     {% block content %}{% endblock %}
+  {% endblock %}
+
+  {% block javascript %}{% endblock %}
 </body>
 </html>

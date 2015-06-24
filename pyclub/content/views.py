@@ -1,11 +1,15 @@
 # -*- coding: utf-8 -*-
 
 from django.views import generic
+from braces import views as braces
 
-from . import models
+from . import forms, models
 
 
-class PostListView(generic.ListView):
-    ordering = ('-created_at',)
-    paginate_by = 5
-    queryset = models.Post.objects.approved_posts().finished()
+class PostCreateView(braces.LoginRequiredMixin, generic.CreateView):
+    model = models.Post
+    form_class = forms.PostForm
+
+
+class PostUpdateView(braces.LoginRequiredMixin, generic.UpdateView):
+    pass
