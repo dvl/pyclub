@@ -1,8 +1,14 @@
 # -*- coding: utf-8 -*-
 
 from django.conf import settings
+from django.core.urlresolvers import reverse_lazy
 from django.db import models
 from django.utils.translation import ugettext as _
+
+from autoslug import AutoSlugField
+
+import bleach
+import markdown
 
 
 class PostQuerySet(models.QuerySet):
@@ -37,6 +43,16 @@ class Post(models.Model):
         verbose_name=_('Body'),
     )
 
+    body_html = models.TextField(
+        verbose_name='Body HTML',
+    )
+
+    slug = AutoSlugField(
+        verbose_name=_('Slug'),
+        max_length=90,
+        populate_from='title',
+    )
+
     status = models.CharField(
         verbose_name=_('Status'),
         max_length=9,
@@ -65,3 +81,18 @@ class Post(models.Model):
 
     def __str__(self):
         return '{}'.format(self.title)
+
+    def get_absolute_url(self):
+        return reverse_lazy('post', args=(self.slug,))
+
+    def save(self, *args, **kwargs):
+        parser = markdown.Markdown(extensions=[
+            'markdown.extensions.codehilite',
+            'markdown.extensions.meta',
+            'markdown.extensions.smarty',
+            'markdown.extensions.toc',
+        ])
+
+        self.body_html = parser.convert(bleach.clean(self.body))
+
+        super().save(*args, **kwargs)

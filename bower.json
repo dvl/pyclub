@@ -21,6 +21,7 @@
     "font-awesome": "~4.3.0",
     "jquery": "~2.1.4",
     "bootstrap": "~3.3.5",
-    "epiceditor": "~0.2.3"
+    "epiceditor": "~0.2.3",
+    "pygments-css": "https://github.com/richleland/pygments-css.git"
   }
 }

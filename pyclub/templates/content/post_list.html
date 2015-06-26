@@ -1,5 +1,23 @@
 {% extends 'base.html' %}
 
 {% block content %}
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis dolorem autem alias itaque culpa eligendi, nemo quam mollitia incidunt dolor aperiam, ipsam laboriosam sint dolore excepturi iure facilis, libero consectetur!
+  <div class="row">
+    <div class="container">
+      <div class="col-md-12">
+        <ul>
+          {% regroup object_list by created_at.year as post_list %}
+
+          {% for posts in post_list %}
+            <li>{{ posts.grouper }}
+              <ul>
+                {% for post in posts.list %}
+                  <li>{{ post.created_at|date:"SHORT_DATE_FORMAT" }} - <a href="{{ post.get_absolute_url }}">{{ post.title }}</a></li>
+                {% endfor %}
+              </ul>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
 {% endblock %}

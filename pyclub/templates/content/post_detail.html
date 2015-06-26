@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}
+  {{ block.super }} // {{ object.title }}
+{% endblock %}
+
+{% block stylesheet %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'pygments-css/default.css' %}">
+{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <div class="container">
+      <div class="col-md-12">
+        <h1>
+          {{ object.title }}
+          <small>by {{ post.created_by.display_name }}</small>
+        </h1>
+        <hr />
+        {{ object.body_html|safe }}
+      </div>
+    </div>
+  </div>
+{% endblock %}
