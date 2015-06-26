@@ -16,7 +16,7 @@
     <div class="container">
       <div class="col-md-12">
         <h1>
-          {{ object.title }}
+          <a href="{% url 'index' %}"><i class="fa fa-home"></i></a> &raquo; {{ object.title }}
           <small>by {{ post.created_by.display_name }}</small>
         </h1>
         <hr />
