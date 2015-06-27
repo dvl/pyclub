@@ -8,7 +8,7 @@
           {% regroup object_list by created_at.year as post_list %}
 
           {% for posts in post_list %}
-            <li>{{ posts.grouper }}
+            <li>{{ posts.grouper }} ({{ posts.list|length }})
               <ul>
                 {% for post in posts.list %}
                   <li>{{ post.created_at|date:"SHORT_DATE_FORMAT" }} - <a href="{{ post.get_absolute_url }}">{{ post.title }}</a></li>
