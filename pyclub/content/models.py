@@ -36,7 +36,7 @@ class Post(models.Model):
 
     title = models.CharField(
         verbose_name=_('Title'),
-        max_length=140,
+        max_length=50,
     )
 
     body = models.TextField(
@@ -49,7 +49,6 @@ class Post(models.Model):
 
     slug = AutoSlugField(
         verbose_name=_('Slug'),
-        max_length=90,
         populate_from='title',
     )
 
