@@ -12,4 +12,5 @@ class PostForm(forms.ModelForm):
         fields = (
             'title',
             'body',
+            'status',
         )

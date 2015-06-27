@@ -9,10 +9,12 @@ from . import forms, models
 
 class PostListView(generic.ListView):
     model = models.Post
+    queryset = models.Post.objects.live()
 
 
 class PostDetailView(generic.DetailView):
     model = models.Post
+    queryset = models.Post.objects.live()
 
 
 class PostCreateView(braces.LoginRequiredMixin, generic.CreateView):
