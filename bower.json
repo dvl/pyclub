@@ -21,7 +21,10 @@
     "font-awesome": "~4.3.0",
     "jquery": "~2.1.4",
     "bootstrap": "~3.3.5",
-    "epiceditor": "~0.2.3",
-    "pygments-css": "https://github.com/richleland/pygments-css.git"
+    "pygments-css": "https://github.com/richleland/pygments-css.git",
+    "codemirror": "~5.4.0",
+    "markdown-it": "~4.3.0",
+    "highlightjs": "~8.5.0",
+    "emojify.js": "~1.0.5"
   }
 }
