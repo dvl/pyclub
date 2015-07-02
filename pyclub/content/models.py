@@ -1,14 +1,15 @@
 # -*- coding: utf-8 -*-
 
 from django.conf import settings
-from django.core.urlresolvers import reverse_lazy
+from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils.translation import ugettext as _
 
 from autoslug import AutoSlugField
 
 import bleach
-import markdown
+import mistune
+import mistune_hilite
 
 
 class PostQuerySet(models.QuerySet):
@@ -64,6 +65,13 @@ class Post(models.Model):
         default=False,
     )
 
+    approved_at = models.DateTimeField(
+        verbose_name=_('Approved at'),
+        blank=True,
+        null=True,
+        editable=False,
+    )
+
     created_by = models.ForeignKey(
         to=settings.AUTH_USER_MODEL,
     )
@@ -82,16 +90,12 @@ class Post(models.Model):
         return '{}'.format(self.title)
 
     def get_absolute_url(self):
-        return reverse_lazy('post', args=(self.slug,))
+        return reverse('post', args=(self.slug,))
 
     def save(self, *args, **kwargs):
-        parser = markdown.Markdown(extensions=[
-            'markdown.extensions.codehilite',
-            'markdown.extensions.meta',
-            'markdown.extensions.smarty',
-            'markdown.extensions.toc',
-        ])
+        renderer = mistune_hilite.HiliteRenderer()
+        md = mistune.Markdown(renderer=renderer)
 
-        self.body_html = parser.convert(bleach.clean(self.body))
+        self.body_html = md(bleach.clean(self.body))
 
         super().save(*args, **kwargs)
