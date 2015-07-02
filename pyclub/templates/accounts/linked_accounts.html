@@ -1,0 +1,19 @@
+{% extends 'dashboard/base.html' %}
+
+{% block title %}
+  {{ block.super }} // Linked Accounts
+{% endblock %}
+
+{% block content %}
+  <ul>
+    {% for account in backends.associated %}
+      <li>{{ account.provider|title }} - {{ account.user }} - <a href="{% url 'social:disconnect_individual' account.provider account.id %}">Disconnect</a></li>
+    {% endfor %}
+  </ul>
+
+  <ul>
+    {% for backend in backends.not_associated %}
+      <li>{{ backend|title }} - <a href="{% url 'social:begin' backend %}">Associar</a></li>
+    {% endfor %}
+  </ul>
+{% endblock %}

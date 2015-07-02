@@ -9,6 +9,7 @@ from .content.views import PostDetailView, PostListView
 urlpatterns = [
     url(r'^dashboard/', include('pyclub.dashboard.urls', namespace='dashboard')),
     url(r'^content/', include('pyclub.content.urls', namespace='content')),
+    url(r'^account/', include('pyclub.accounts.urls', namespace='accounts')),
 
     url(r'', include('django.contrib.auth.urls')),
     url(r'', include('social.apps.django_app.urls', namespace='social')),
