@@ -2,6 +2,13 @@
 
 Colaborative blog system
 
+This project has the intention to replace the current system used on
+[pythonclub.com.br](http://pythonclub.com.br) a blog where everyone has
+access to post anything related with Python (and web development in general)
+just using your GitHub account.
+
+All posts and editions must be approved by a staff member before appears online.
+
 ## Development
 
 ### Via Docker
