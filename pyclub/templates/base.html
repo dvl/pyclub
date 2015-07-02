@@ -9,18 +9,56 @@
   <title>{% block title %}{{ SITE_NAME }}{% endblock %}</title>
 
   {% block stylesheet %}
-    <link rel="stylesheet" href="{% static 'bootstrap/dist/css/bootstrap.css' %}">
-    <link rel="stylesheet" href="{% static 'font-awesome/css/font-awesome.css' %}">
+    <link rel="stylesheet" href="{% static 'foundation/css/foundation.css' %}">
+    <link rel="stylesheet" href="{% static 'css/app.css' %}">
   {% endblock %}
+
+  <script src="{% static 'modernizr/modernizr.js' %}"></script>
 </head>
 <body>
   {% block body %}
+    <nav class="top-bar" data-topbar role="navigation">
+      <ul class="title-area">
+        <li class="name">
+          <h1><a href="{% url 'index' %}">{{ SITE_NAME }}</a></h1>
+        </li>
+        <li class="toggle-topbar menu-icon">
+          <a href="#"><span>Menu</span></a>
+        </li>
+      </ul>
+
+      <section class="top-bar-section">
+        <ul class="right">
+          {% if user.is_authenticated %}
+            <li class="has-dropdown">
+              <a href="#">{{ user }}</a>
+              <ul class="dropdown">
+                  <li><a href="{% url 'logout' %}">Logout</a></li>
+              </ul>
+            </li>
+          {% else %}
+            <li><a href="{% url 'login' %}">Login</a></li>
+          {% endif %}
+        </ul>
+
+        <ul class="left">
+          <li><a href="{% url 'content:create' %}">Criar Postagem</a></li>
+          <li><a href="#">Minhas Postagens</a></li>
+        </ul>
+      </section>
+    </nav>
+
     {% block content %}{% endblock %}
   {% endblock %}
 
   {% block javascript %}
     <script src="{% static 'jquery/dist/jquery.js' %}"></script>
-    <script src="{% static 'bootstrap/dist/js/bootstrap.js' %}"></script>
+    <script src="{% static 'jquery.cookie/jquery.cookie.js' %}"></script>
+    <script src="{% static 'foundation/js/foundation.js' %}"></script>
+    <script src="{% static 'normalize/normalize.js' %}"></script>
   {% endblock %}
+  <script>
+    $(document).foundation();
+  </script>
 </body>
 </html>

@@ -3,10 +3,16 @@
 {% load staticfiles %}
 
 {% block title %}
-  {{ block.super }} // Criar Postagem
+  {{ block.super }} //
+  {% if object %}
+    Editar Postagem
+  {% else %}
+    Criar Postagem
+  {% endif %}
 {% endblock %}
 
 {% block stylesheet %}
+  {{ block.super }}
   <link rel="stylesheet" href="{% static 'codemirror/lib/codemirror.css' %}">
   <link rel="stylesheet" href="{% static 'codemirror/theme/base16-light.css' %}">
   <link rel="stylesheet" href="{% static 'highlightjs/styles/default.css' %}">
@@ -14,6 +20,7 @@
 {% endblock %}
 
 {% block javascript %}
+  {{ block.super }}
   <script src="{% static 'markdown-it/dist/markdown-it.js' %}"></script>
   <script src="{% static 'highlightjs/highlight.pack.js' %}"></script>
   <script src="{% static 'emojify.js/dist/js/emojify.js' %}"></script>
@@ -35,11 +42,23 @@
 {% endblock %}
 
 {% block content %}
-  <!-- Practically everything here was borrowed from https://github.com/jbt/markdown-editor/ -->
-  <div id="in">
-    <textarea id="code">## Bem vindo ao editor!
+<main>
+  <form method="POST" action="">
+    {% csrf_token %}
+    <div class="row collapse">
+      <div class="small-10 columns">
+        <input type="text" name="{{ form.title.html_name }}" id="{{ form.title.id_for_label }}" value="{% if form.title.value %}{{ form.title.value }}{% endif %}" placeholder="{{ form.title.label }}" required>
+      </div>
+      <div class="small-2 columns">
+        <button type="submit" class="button postfix">Save</a>
+      </div>
+    </div>
 
-Elefoi pensado para facilitar a criação de conteudos utilizando `Markdown`, basta digitar seu texto para ver ele ser renderizado em tempo real no painel ao lado :+1:, várias funcionalidades estão disponiveis, entre elas:
+    <div id="container" class="row">
+      <div id="in" class="large-6 columns">
+        <textarea name="{{ form.body.html_name }}" id="{{ form.body.id_for_label }}">{% if not form.body.value %}## Bem vindo ao editor!
+
+Ele foi pensado para facilitar a criação de conteudos utilizando `Markdown`, basta digitar seu texto para ver ele ser renderizado em tempo real no painel ao lado :+1:, várias funcionalidades estão disponiveis, entre elas:
 
 ### Listas
 
@@ -79,7 +98,10 @@ Outras opções disponiveis:
 * *Itálico*
 * ~~strike~~
 
-For further Markdown syntax reference: [Markdown Documentation](https://daringfireball.net/projects/markdown/basics)</textarea>
-  </div>
-  <div id="out"></div>
+For further Markdown syntax reference: [Markdown Documentation](https://daringfireball.net/projects/markdown/basics){% else %}{{ form.body.value }}{% endif %}</textarea>
+      </div>
+      <div id="out" class="large-6 columns"></div>
+    </div>
+  </form>
+</main>
 {% endblock %}

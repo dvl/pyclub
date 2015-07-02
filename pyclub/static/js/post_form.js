@@ -47,7 +47,7 @@ function update(editor) {
   }
 }
 
-var editor = CodeMirror.fromTextArea(document.getElementById('code'), {
+var editor = CodeMirror.fromTextArea(document.getElementById('id_body'), {
   mode: 'gfm',
   lineNumbers: false,
   matchBracket: true,

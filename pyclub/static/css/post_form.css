@@ -1,31 +1,29 @@
-body {
-  margin: 0;
+#id_title {
+  margin-bottom: 0;
+  font-size: 28px;
 }
 
-#in {
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  width: 50%;
-  height: auto;
-  overflow: auto;
-  font-size: 12px;
+.button {
+  margin-bottom: 0;
+}
+
+#container {
+
+}
+
+#in,
+#out {
+  /**
+   * Momento eu odeio CSS do dia:
+   * Eu adoraria que essas divs tivessem a altura da div pai
+   * assim ocupando 100% do resto da tela, mas por algum motivo
+   * além da minha capacidade de compreensão isso é impossivel...
+   */
+  height: 500px;
 }
 
 #out {
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 50%;
-  bottom: 0;
-  overflow: auto;
-  padding: 10px;
-  padding-left: 20px;
-  color: #444;
-  font-family: Georgia, Palatino, 'Palatino Linotype', Times, 'Times New Roman', serif;
-  font-size: 16px;
-  line-height: 1.5em;
+  overflow: scroll;
 }
 
 .CodeMirror {
@@ -40,7 +38,10 @@ body {
 
 .CodeMirror-scroll {
   padding: 15px;
-  box-sizing: border-box;
+}
+
+.CodeMirror pre {
+  line-height: 16px;
 }
 
 .emoji {

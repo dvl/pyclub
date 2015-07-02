@@ -1,23 +1,31 @@
 {% extends 'base.html' %}
 
-{% block content %}
-  <div class="row">
-    <div class="container">
-      <div class="col-md-12">
-        <ul>
-          {% regroup object_list by created_at.year as post_list %}
+{% load staticfiles %}
 
-          {% for posts in post_list %}
-            <li>{{ posts.grouper }} ({{ posts.list|length }})
-              <ul>
-                {% for post in posts.list %}
-                  <li>{{ post.created_at|date:"SHORT_DATE_FORMAT" }} - <a href="{{ post.get_absolute_url }}">{{ post.title }}</a></li>
-                {% endfor %}
-              </ul>
-            </li>
-          {% endfor %}
-        </ul>
-      </div>
+{% block stylesheet %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'css/post_list.css' %}">
+{% endblock %}
+
+{% block body %}
+<main>
+  <div class="row">
+    <div class="large-3 columns sidepanel" style="background-color: black;">
+      <a href="{% url 'index' %}">
+        <img src="{% static 'img/logo_275x130.png' %}" alt="{{ SITE_NAME }} Logo">
+      </a>
+    </div>
+    <div class="large-9 columns content">
+      {% block postarea %}
+        latest posts
+
+        {% for post in object_list %}
+          <li>
+            <a href="{{ post.get_absolute_url }}">{{ post }}</a>
+          </li>
+        {% endfor %}
+      {% endblock %}
     </div>
   </div>
+</main>
 {% endblock %}
