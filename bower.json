@@ -18,13 +18,14 @@
     "tests"
   ],
   "dependencies": {
-    "font-awesome": "~4.3.0",
-    "jquery": "~2.1.4",
-    "bootstrap": "~3.3.5",
-    "pygments-css": "https://github.com/richleland/pygments-css.git",
     "codemirror": "~5.4.0",
-    "markdown-it": "~4.3.0",
+    "emojify.js": "~1.0.5",
+    "foundation": "~5.5.2",
     "highlightjs": "~8.5.0",
-    "emojify.js": "~1.0.5"
+    "jquery": "~2.1.4",
+    "markdown-it": "~4.3.0",
+    "modernizr": "~2.8.3",
+    "normalize": "~1.0.4",
+    "pygments-css": "https://github.com/richleland/pygments-css.git"
   }
 }
