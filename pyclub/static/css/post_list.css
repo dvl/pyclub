@@ -1,0 +1,19 @@
+body {
+  overflow: hidden;
+}
+
+.row {
+  display: flex;
+}
+
+.row > div {
+  height: 100vh;
+}
+
+.sidepanel {
+
+}
+
+.content {
+  overflow: scroll;
+}
