@@ -2,6 +2,7 @@
 
 from django.contrib import admin
 from django.utils.translation import ugettext as _
+from django.utils.timezone import now
 
 from . import forms, models
 
@@ -13,7 +14,7 @@ class PostAdmin(admin.ModelAdmin):
         'status',
         'approved',
         'created_at',
-        # 'approved_at',
+        'approved_at',
         'created_by',
     )
 
@@ -24,9 +25,18 @@ class PostAdmin(admin.ModelAdmin):
     )
 
     def approve(self, request, queryset):
-        queryset.filter(status=models.Post.FINISHED).update(approved=True)
+        rows = (
+            queryset.filter(
+                status=models.Post.FINISHED,
+                approved=False
+            )
+            .update(
+                approved_at=now(),
+                approved=True
+            )
+        )
 
-        self.message_user(request, _('Selected posts approved'))
+        self.message_user(request, _('{0} posts approved'.format(rows)))
     approve.short_description = _('Approve selected posts')
 
     def save_model(self, request, obj, *args):
