@@ -26,6 +26,14 @@ Create `.env` file from template
 Build the containers
 
     $ docker-compose build
+    
+Install migrations:
+
+    $ docker-compose run web python manage.py migrate
+    
+And you also may need to create a superuser:
+
+    $ docker-compose run web python manage.py createsuperuser
 
 To run use
 
